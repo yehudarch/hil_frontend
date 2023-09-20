@@ -1,0 +1,37 @@
+.table-container {
+    max-width: 100%;
+    overflow-x: auto;
+    /* height: 800px; */
+    white-space: nowrap;
+
+     /* Set the desired height */
+  }
+  
+.table-container table {
+    /* width: 100%; */
+    /* table-layout: fixed; */
+    border-collapse: collapse;
+    background-color: transparent;
+  }
+  
+.table-container th {
+    /* background-color: #384bfc; */
+    position: sticky;
+    top: 0;
+    /* background-color: transparent; Set the desired background color */
+    z-index: 1;
+    border: none; /* Remove vertical lines */
+    font-size: 16px ; /* Smaller font size */
+    /* padding: 8px; Adjust cell padding */
+  
+ }
+
+ .table-container td {
+    background-color: rgba(0, 0, 0, 0.0); /* Set a semi-transparent background color */
+    /* Add any other styling you need */
+    border: none; /* Remove vertical lines */
+    padding: 6px; /* Adjust cell padding */
+    font-size: 14px; /* Smaller font size */
+  
+  }
+  

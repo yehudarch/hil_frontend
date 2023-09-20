@@ -1,0 +1,11 @@
+body {
+  background-image: url('./assets/3853752_81310.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.active-icon {
+  color: black; 
+  /* background-color: white;  */
+}
