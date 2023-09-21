@@ -6,6 +6,7 @@ import MyBarChart from './MyBarChart';
 import MyPieChart from './MyPieChart'
 import VersionDropdown from './VersionDropdown';
 import { Spinner } from 'react-bootstrap';
+import HeatMap from './HeatMap';
 
 
 const Dashboard = () => {
@@ -97,18 +98,24 @@ const Dashboard = () => {
         
         {allData && <MyBarChart data={allData} setSelectedDate={setSelectedDate} selectedDate={selectedDate}/>}
         {/* <VersionDropdown versionNames={versionNames} selectedVersion={selectedVersion} setSelectedVersion={setSelectedVersion}/> */}
-    <br/>
-    <h4 style={{color: 'grey'}}>Presenting results for: {selectedDate}</h4>
-        {/* {loading ? <Spinner animation="border" size="lg" /> : null} */}
+        <br/>
+        <h4 style={{color: 'grey'}}>Presenting results for: {selectedDate}</h4>
+            {/* {loading ? <Spinner animation="border" size="lg" /> : null} */}
 
-    <div style={{ display: "flex", flexDirection: "row", alignItems: "center",
-    flexWrap: "wrap", justifyContent: "left", border: 'solid lightgrey 1px', borderRadius: '10px'}}>
-        {versionData.length > 0 && pieColumns.map((column) => {return <MyPieChart data={versionData} column={column} />})}
-        {/* {pieColumns.map((col) => {return <MyPieChart data={data} column={col} />})} */}
-        {/* {data && pieColumns.map((column) => {return <MyPieChart data={data} column={column}/>})} */}
-        {/* {data && pieColumns.map((column) => {console.log(data);})} */}
-        
-    </div>
+        <div  style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+            <div style={{ display: "flex", flexDirection: "row", alignItems: "center", width: '49%',
+            flexWrap: "wrap", justifyContent: "left", border: 'solid lightgrey 1px', borderRadius: '10px'}}>
+                {versionData.length > 0 && pieColumns.map((column) => {return <MyPieChart data={versionData} column={column} />})}
+                {/* {pieColumns.map((col) => {return <MyPieChart data={data} column={col} />})} */}
+                {/* {data && pieColumns.map((column) => {return <MyPieChart data={data} column={column}/>})} */}
+                {/* {data && pieColumns.map((column) => {console.log(data);})} */}
+                
+            </div>
+            <br />
+            <div style={{ width: '49%', border: 'solid lightgrey 1px', borderRadius: '10px', marginLeft: '20px'}}>
+                <HeatMap versionData={versionData}/>
+            </div>
+        </div>
     </div>
   )
 }

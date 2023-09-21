@@ -108,7 +108,7 @@ const MyBarChart = ({ data, selectedDate, setSelectedDate}) => {
 //           ],
             datasets: rootCauseOptions.map((rootCause, index) => (
                 {
-                    barThickness: 25,
+                    barThickness: 20,
                     label: rootCause,
                     data: counts.map((count)=>(count[rootCause])),
                     backgroundColor: chosenColors[index % chosenColors.length],

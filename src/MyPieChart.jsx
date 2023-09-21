@@ -79,7 +79,7 @@ const MyPieChart = ({data, column}) => {
       };
     
     return (
-      <div style={{width: '15%', margin: '40px', display: "flex", flexDirection: "column", alignItems: "center",}}>
+      <div style={{width: '20%', maxWidth: '200px', minWidth: '100px', margin: '30px', display: "flex", flexDirection: "column", alignItems: "center",}}>
         <h4 style={{color: 'grey'}}>{column}</h4>
         <Pie data={dataset} options={options} />
       </div>

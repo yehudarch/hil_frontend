@@ -9,3 +9,20 @@ body {
   color: black; 
   /* background-color: white;  */
 }
+
+.toolTip {
+  display: flex;
+  direction: column;
+  flex-wrap: wrap;
+  /* width: 100px; */
+  /* height: 80px; */
+  position: absolute;
+  background-color: black;
+  color: white;
+  padding: 8px;
+  /* border: 1px solid #ccc; */
+  border-radius: 10px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  pointer-events: none; /* Ensure the tooltip doesn't interfere with interactions. */
+}

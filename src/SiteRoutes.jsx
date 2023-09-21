@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Route, Routes } from 'react-router-dom'
+import { AppContext } from './App'
 import Home from './Home'
 import LoginForm from './LoginForm'
 import MainTable from './MainTable'
@@ -7,8 +8,9 @@ import ReportTable from './ReportTable'
 import SignupForm from './SignupForm'
 
 const SiteRoutes = () => {
+    const {showBar} = useContext(AppContext)
   return (
-    <div style={{width: '85%', margin: '10px'}}>
+    <div style={{ width: showBar ? '85%' : '99%', margin: '10px'}}>
         <Routes>
               <Route path='/' element={<Home/>}/>
               <Route path='/main-table' element={<MainTable/>}/>
