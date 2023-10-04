@@ -8,7 +8,7 @@ import SideBarPreferences from './SideBarPreferences';
 import SideBarFilters from './SideBarFilters';
 import SideBars from './SideBars';
 import { createContext, useEffect, useState } from 'react';
-import { authenticateToken } from './client';
+import { authenticateToken, fetchVersionDateData } from './client';
 import InitData from './InitData';
 import { useNavigate } from 'react-router-dom';
 import SearchBar from './SearchBar';
@@ -38,6 +38,11 @@ function App() {
 
   const [allData, setAllData] = useState(null)
   const [columnInfo, setColumnInfo] = useState([])
+
+  const [versionDataLoaded, setVersionDataLoaded] = useState(false)
+  const [exportRequest, setExportRequest] = useState(false)
+  const [dataLoading, setDataLoading] = useState(false)
+  const [versionData, setVersionData] = useState([]);
   // const [darkMode, setDarkMode] = useState(localStorage.getItem('dark_mode'))
 
   const nav = useNavigate()
@@ -82,10 +87,42 @@ useEffect(()=>{
   // setFinalFilters(updatedFinalFilters);
   console.log('useEffect-filters', filters);
   console.log('useEffect-finalFilters', finalFilters);
+  console.log('useEffect-searchFilter', searchFilter);
   // {Object.keys(filters).length > 0 && buildFilterParams()}
   buildFilterParams(finalFilters)
 }, [filters, searchFilter, versionFilter])
 
+const getVersionData = async () => {
+  const res = await fetchDataWrapper(); 
+
+  if (res) {
+      setVersionDataLoaded(true)
+  }
+}
+
+const fetchDataWrapper = async () => {
+  const res = await fetchVersionDateData(paramsString); 
+
+  if (res) {
+      setVersionData(res);
+  }
+  return res
+}
+
+useEffect(()=>{
+  console.log('dash exportRequest', exportRequest);
+  // setVersionFilter((prevFilters) => {
+  //     const updatedFilters = { ...prevFilters };
+  //     console.log('dashboard_selectedDate', selectedDate);
+  //     updatedFilters['version_date'] = selectedDate;
+  //     return updatedFilters;
+  //   });
+  //   console.log('filters_date', versionFilter);
+  getVersionData();
+  // console.log('data2', data);
+  // getVersions()
+  setExportRequest(false)
+}, [paramsString, exportRequest])
 
   return (
     <div>
@@ -106,6 +143,10 @@ useEffect(()=>{
                                 filterChanges, setFilterChanges,
                                 columnInfo, setColumnInfo,
                                 allData, setAllData,
+                                versionData, setVersionData,
+                                dataLoading, setDataLoading,
+                                exportRequest, setExportRequest,
+                                versionDataLoaded, setVersionDataLoaded,
                                 }}>
         <div>
       {/* <header > */}

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 import { AppContext } from './App'
 import Home from './Home'
 import LoginForm from './LoginForm'
@@ -8,13 +8,15 @@ import ReportTable from './ReportTable'
 import SignupForm from './SignupForm'
 
 const SiteRoutes = () => {
-    const {showBar} = useContext(AppContext)
+    const {showBar, isLogged} = useContext(AppContext)
+
+    const nav = useNavigate()
+
   return (
     <div style={{ width: showBar ? '85%' : '99%', margin: '10px'}}>
         <Routes>
-              <Route path='/' element={<Home/>}/>
-              <Route path='/main-table' element={<MainTable/>}/>
-              <Route path='/report-table' element={<ReportTable/>}/>
+              <Route path='/' element={isLogged ? <Home/> : <LoginForm/>}/>
+              <Route path='/report-table' element={isLogged ? <ReportTable/> : <LoginForm/>}/>
               <Route path='/login' element={<LoginForm/>}/>
               <Route path='/signup' element={<SignupForm/>}/>
         </Routes>

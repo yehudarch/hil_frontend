@@ -1,12 +1,19 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { signupFormSubmit } from './client'
 import { Link, useNavigate } from 'react-router-dom'
+import { AppContext } from './App'
 
-const SignupForm = ({setToken}) => {
+const SignupForm = () => {
     const [username, setUsername] = useState('')
+    const [firstname, setFirstname] = useState('')
+    const [lastname, setLastname] = useState('')
     const [password, setPassword] = useState('')
     const [password2, setPassword2] = useState('')
     const [email, setEmail] = useState('')
+
+    const {token, setToken} = useContext(AppContext)
+
+    const nav = useNavigate()
 
     // const handleSubmit = (event) => {
     //     console.log(name);
@@ -22,10 +29,11 @@ const SignupForm = ({setToken}) => {
         console.log(email);
         if (password === password2) {
             console.log('Password varified!');
-            const res = await signupFormSubmit(username, password, email)
+            const res = await signupFormSubmit(username, firstname, lastname, password, email)
 
             if (res) {
                 setToken(localStorage.getItem('app_token'))
+                nav('/')
 
             }
         } else {
@@ -44,6 +52,8 @@ const SignupForm = ({setToken}) => {
     {/* <div> */}
             <form onSubmit={handleSubmit}>
                 <input onChange={(e) => {setUsername(e.target.value)}} required value={username} placeholder='Username'  className="form-control"/><br/>
+                <input onChange={(e) => {setFirstname(e.target.value)}} required value={firstname} placeholder='First Name'  className="form-control"/><br/>
+                <input onChange={(e) => {setLastname(e.target.value)}} required value={lastname} placeholder='Last Name'  className="form-control"/><br/>
                 <input onChange={(e) => {setPassword(e.target.value)}} required value={password} type='password' placeholder='Password'  className="form-control"/><br/>
                 <input onChange={(e) => {setPassword2(e.target.value)}} required value={password2} type='password' placeholder='Confirm Password'  className="form-control"/><br/>
                 {password !== password2 && <p style={{color: 'red'}}>Passwords are not identical!</p>}

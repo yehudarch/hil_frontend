@@ -23,22 +23,23 @@ const MyNavbar = () => {
     const nav = useNavigate()
 
     const handleLogout = () => {
-        // const confirmed = window.confirm("Are you sure you want to logout?");
-        // if (confirmed) {
-          setIsLogged(false);
-        //   nav('/home');
-        // }
+        const confirmed = window.confirm("Are you sure you want to logout?");
+        if (confirmed) {
+            localStorage.removeItem("app_token")
+            setIsLogged(false);
+            nav('/login');
+        }
       };
       
   return (
     <div>
-    <Navbar expand="lg" style={{ backgroundColor: '#00072D'}} variant="dark">
+    <Navbar  bg="dark" data-bs-theme="dark">
     <IconButton
-        sx={{margin: '10px', color: 'white'}}
+        sx={{marginLeft: '10px', color: 'white'}}
             onClick={()=>{setShowBar(!showBar)}}
             >
-            <MenuIcon fontSize="large"/>
-        </IconButton>
+        <MenuIcon fontSize="large"/>
+    </IconButton>
 
     <img src={mobileyeLogo} alt="Company Logo" style={{width: '150px', margin: '20px'}}
             onClick={()=>nav('/')}/>
@@ -50,13 +51,13 @@ const MyNavbar = () => {
             {/* <Nav className="ml-auto">
                 <img src={mobileyeLogo} alt="Company Logo" style={{width: '150px'}}/>
             </Nav> */}
-            <Nav className="m-auto">
+            <Nav className="m-auto" >
                 <Nav.Link as={Link} to="/" >Dashboard</Nav.Link>
-                <Nav.Link as={Link} to='report-table'>Reports</Nav.Link>
-                <Nav.Link as={Link} to="/report-table">Help</Nav.Link>
+                <Nav.Link as={Link} to='/report-table'>Reports</Nav.Link>
+                <Nav.Link as={Link} to="/bla">Help</Nav.Link>
                 <NavDropdown title="Contact us" id="basic-nav-dropdown">
-                <NavDropdown.Item as={Link} to="/tabs">Report a bug</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/city">Request a Feature</NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/bla">Report a bug</NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/bla">Request a Feature</NavDropdown.Item>
                 {/* <NavDropdown.Item as={Link} to="/modal">
                     Modal
                 </NavDropdown.Item> */}
@@ -66,14 +67,15 @@ const MyNavbar = () => {
                 </NavDropdown.Item>
                 </NavDropdown>
             </Nav>
-            <Nav className="ml-auto">
-                <div style={{paddingBottom: 'px', display: 'flex'}}>
-                {isLogged && <p className="text-white mt-3" style={{paddingRight: '15px'}}>Hi {firstname} {lastname}</p>}
-                {isLogged ? <Button variant="contained" size='small' onClick={handleLogout} className="mt-3" style={{borderRadius: '10px', height: '30px'}}>Logout</Button> : <Button variant="contained" size='small' onClick={()=>{nav('/login')}} className="mt-3"  style={{borderRadius: '10px', height: '30px'}}>Login</Button>}
-                </div>
-            </Nav>
             </Navbar.Collapse>
         </Container>
+        {/* <Nav className="ml-auto"> */}
+            <div style={{marginRight: '20px', display: 'flex', alignItems: 'center'}}>
+            {isLogged && <p className="text-white mt-3" style={{paddingRight: '15px', textTransform: 'capitalize'}}>Hi {firstname} {lastname}</p>}
+            {isLogged ? <Button variant="contained" size='small' onClick={handleLogout}>Logout</Button> : <Button variant="contained" size='small' onClick={()=>{nav('/login')}}>Login</Button>}
+            </div>
+        {/* </Nav> */}
+
       </Navbar>
 
     </div>
