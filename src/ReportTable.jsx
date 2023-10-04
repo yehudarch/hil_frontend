@@ -12,6 +12,7 @@ import kangaroo from './assets/icons8-kangaroo-48.png'
 import excel from './assets/icons8-microsoft-excel-48.png'
 import csv from './assets/icons8-file-47.png'
 import pdf from './assets/PDF_file_icon.png'
+import jira from './assets/Jira.png'
 import load_car from './assets/output-onlinegiftools.gif'
 import { CSVLink } from "react-csv";
 import { saveAs } from 'file-saver';
@@ -21,6 +22,7 @@ import { usePDF } from 'react-to-pdf';
 import generatePDF from 'react-to-pdf';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import TurndownService from 'turndown';
 
 const ReportTable = () => {
     const [page, setPage] = useState(1)
@@ -243,6 +245,34 @@ const createJumpData = () => {
     doc.save(`hil_data_${currDate}-${currTime}.pdf`);
   };
   
+  const copyToClipboard = () => {
+    // Get the table content and convert it to Markdown format
+    const markdownTable = convertTableToMarkdown();
+
+    // Copy to clipboard
+    navigator.clipboard.writeText(markdownTable).then(() => {
+      console.log('Table copied to clipboard!');
+    });
+  };
+
+  const convertTableToMarkdown = () => {
+    const rows = pdfRef.current.querySelectorAll('tr');
+  
+    const markdownRows = Array.from(rows)
+      .map((row) => {
+        const cells = Array.from(row.querySelectorAll('th, td'))
+          .map((cell) => {
+            return `| ${cell.textContent || cell.innerText} `;
+          })
+          .join('|');
+  
+        return `${cells}|`;
+      })
+      .join('\n');
+  
+    return markdownRows;
+  };
+  
   return (
     <div>
         {dataLoading ?
@@ -281,6 +311,11 @@ const createJumpData = () => {
             </IconButton>
           </Tooltip>
         </CSVLink>
+        <Tooltip title="Copy Jira format to clipboard">
+          <IconButton onClick={copyToClipboard}>
+            <img src={jira} alt='jira' style={{width: '25px'}}/>
+          </IconButton>
+        </Tooltip>
         <Tooltip title="Download Excel Sheet">
           <IconButton onClick={() => {setDownloadExcel(true); createExportData()}} >
             <img src={excel} alt='excel' style={{width: '30px'}}/>
