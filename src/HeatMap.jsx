@@ -11,9 +11,12 @@ const HeatMap = ({versionData}) => {
 
     const [hoveredMarker, setHoveredMarker] = useState(null);
     const [center, setCenter] = useState()
+    const [loadMap, setLoadMap] = useState(false)
+    const [mapReady, setMapReady] = useState(false)
 
     useEffect(()=>{
         console.log('update version data');
+    setTimeout(()=>{setLoadMap(true)}, 2000)
     if (versionData.length > 0) {
         console.log('update version data2', versionData[0].latitude);
 
@@ -45,6 +48,13 @@ const HeatMap = ({versionData}) => {
       bootstrapURLKeys={{ key: "AIzaSyC-3auqDxFmY_x-SzCOB8akiNwZm6V_zcI" }}
       center={center}
       defaultZoom={15}
+          options={{
+            mapTypeControl: true,
+            mapTypeId: 'roadmap', // Set the default map type to 'satellite'
+            // tilt: 45, // Set the tilt angle to 45 degrees
+            // labels: true,
+        
+          }}
     >
       {/* <AnyReactComponent
         lat={31.7683}

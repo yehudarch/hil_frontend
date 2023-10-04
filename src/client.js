@@ -1,10 +1,12 @@
 import axios from 'axios'
 import { SERVER_URL } from './config'
 
-export const signupFormSubmit = async (username, password, email) => {
+export const signupFormSubmit = async (username, firstname, lastname, password, email) => {
     
     const payload = {
         username: username,
+        firstname: firstname,
+        lastname: lastname,
         password: password,
         email: email,
     };

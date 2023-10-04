@@ -4,12 +4,13 @@ import { fetchData } from './client';
 
 const InitData = () => {
 
-    const {selectedColumns, setSelectedColumns, columnInfo, setColumnInfo, allData, setAllData} = useContext(AppContext)
+    const {selectedColumns, setSelectedColumns, columnInfo, setColumnInfo, allData, setAllData, dataLoading, setDataLoading} = useContext(AppContext)
 
 
     const getAllData = async () => {
         // setLoading(true);        
         console.log('getData');
+        setDataLoading(true)
         const res = await fetchData();
         // setLoading(false);        
         console.log('getData', res);
@@ -29,6 +30,7 @@ const InitData = () => {
 
 
         }
+        setDataLoading(false)
       }
 
     // const getVersions = async () => {
